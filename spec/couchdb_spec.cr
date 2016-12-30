@@ -1,9 +1,26 @@
 require "./spec_helper"
 
-describe Couchdb do
-  # TODO: Write tests
+require "../src/couchdb/client"
 
-  it "works" do
-    false.should eq(true)
+describe CouchDB do
+
+  describe CouchDB::Client do
+    it "should get server info" do
+      client = new_client
+      info = client.server_info
+      info.couchdb.should eq "Welcome"
+      info.version.should eq "2.0.0"
+      info.vendor["name"].should eq "The Apache Software Foundation"
+    end
+
+    it "should return databases list" do
+      client = new_client
+      dbs = client.databases
+      dbs.should eq [] of String
+    end
+
+
+
   end
+
 end

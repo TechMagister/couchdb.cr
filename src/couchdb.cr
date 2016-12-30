@@ -1,5 +1,7 @@
-require "./couchdb/*"
+require "./couchdb/version"
+require "./couchdb/client"
+require "./couchdb/response"
 
-module Couchdb
-  # TODO Put your code here
+module CouchDB
+
 end
