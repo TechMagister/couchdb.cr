@@ -27,7 +27,13 @@ module CouchDB::Response
 
   class CreateDocumentStatus < Status
 
-    JSON.mapping(id: String?, rev: String?)
+    JSON.mapping(
+      ok: Bool?,
+      error: String?,
+      reason: String?,
+      id: String?,
+      rev: String?
+    )
 
   end
 

@@ -12,6 +12,7 @@ module CouchDB
     ALL_DBS = "/_all_dbs"
     DB = "/%s"
     UUIDS = "/_uuids?count=%d"
+    CREATE_DOC = DB + "/%s"
 
   end
 
@@ -21,8 +22,8 @@ module CouchDB
     end
 
     {% for method in [:get, :put, :delete] %}
-      private def {{method.id}}(path : String)
-        response = HTTP::Client.{{method.id}}(@uri + path)
+      private def {{method.id}}(path : String, body : String = nil)
+        response = HTTP::Client.{{method.id}}(@uri + path, body: body)
         response.body
       end
     {% end %}
@@ -43,9 +44,16 @@ module CouchDB
       Response::Status.from_json(delete URL::DB % name)
     end
 
-    def new_uuids(count = 1)
+    def new_uuids(count = 1) : Array(String)
       res = NamedTuple(uuids: Array(String)).from_json(get URL::UUIDS % count)
       res["uuids"]
+    end
+
+    def create_document(database, object) : Response::CreateDocumentStatus
+      uuid = new_uuids.first
+      Response::CreateDocumentStatus.from_json(
+        put(URL::CREATE_DOC % {database, uuid}, body: object.to_json)
+      )
     end
 
   end
