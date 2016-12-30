@@ -32,6 +32,7 @@ info.vendor["name"] # The Apache Software Foundation
 - [x] Create Database
 - [x] Delete Database
 - [x] List Database
+- [x] Get new uuid
 - [ ] Create Document
 - [ ] Find Document
 - [ ] Delete Document

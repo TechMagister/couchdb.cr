@@ -11,6 +11,7 @@ module CouchDB
     INFO = "/"
     ALL_DBS = "/_all_dbs"
     DB = "/%s"
+    UUIDS = "/_uuids?count=%d"
 
   end
 
@@ -40,6 +41,11 @@ module CouchDB
 
     def delete_database(name : String) : Response::Status
       Response::Status.from_json(delete URL::DB % name)
+    end
+
+    def new_uuids(count = 1)
+      res = NamedTuple(uuids: Array(String)).from_json(get URL::UUIDS % count)
+      res["uuids"]
     end
 
   end

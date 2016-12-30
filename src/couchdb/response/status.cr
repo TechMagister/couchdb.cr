@@ -25,4 +25,10 @@ module CouchDB::Response
 
   end
 
+  class CreateDocumentStatus < Status
+
+    JSON.mapping(id: String?, rev: String?)
+
+  end
+
 end

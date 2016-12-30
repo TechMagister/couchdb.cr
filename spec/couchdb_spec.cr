@@ -29,6 +29,12 @@ describe CouchDB do
       client.delete_database("testdb").ok?.should be_true
     end
 
+    it "should grab new uuids" do
+      client = new_client
+      client.new_uuids(1).size.should eq 1
+      client.new_uuids(2).size.should eq 2
+    end
+
 
 
   end
