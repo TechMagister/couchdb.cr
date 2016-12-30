@@ -35,7 +35,7 @@ info.vendor["name"] # The Apache Software Foundation
 - [x] Get new uuid
 - [x] Create Document
 - [x] Find all the documents
-- [ ] Find Document with criteria
+- [x] Find Document with criteria
 - [ ] Delete Document
 - [ ] Update Document
 

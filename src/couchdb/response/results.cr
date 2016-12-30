@@ -31,4 +31,11 @@ module CouchDB::Response
 
   end
 
+  class FindResults
+    JSON.mapping(
+      warning: String?,
+      docs: Array(JSON::Any)
+    )
+  end
+
 end

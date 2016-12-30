@@ -49,6 +49,15 @@ describe CouchDB do
 
       row["name"].should eq "John"
       row["age"].should eq 20
+    end
+
+    it "should find a document" do
+      client = new_client
+      query = CouchDB::FindQuery.from_json "{\"selector\": { \"age\": {\"$eq\": 20} } }"
+      resp = client.find_document("testdb", query)
+
+      resp.docs.size.should eq 1
+      resp.docs.first["name"].should eq "John"
 
     end
 

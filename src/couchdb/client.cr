@@ -12,8 +12,10 @@ module CouchDB
     ALL_DBS = "/_all_dbs"
     DB = "/%s"
     UUIDS = "/_uuids?count=%d"
+
     CREATE_DOC = DB + "/%s"
     ALL_DOCS = DB + "/_all_docs"
+    FIND_DOCS = DB + "/_find"
 
   end
 
@@ -22,9 +24,11 @@ module CouchDB
     def initialize(@uri : String = "http://127.0.0.1:5984")
     end
 
-    {% for method in [:get, :put, :delete] %}
-      private def {{method.id}}(path : String, body : String = nil)
-        response = HTTP::Client.{{method.id}}(@uri + path, body: body)
+    {% for method in [:get, :put, :delete, :post] %}
+      private def {{method.id}}(path : String, body : String = nil,
+                                headers : HTTP::Headers? = nil)
+        response = HTTP::Client.{{method.id}}(@uri + path, body: body,
+                                              headers: headers)
         response.body
       end
     {% end %}
@@ -62,6 +66,14 @@ module CouchDB
         put(URL::CREATE_DOC % {database, uuid}, body: object.to_json)
       )
     end
+
+    def find_document(database : String, query : FindQuery) : Response::FindResults
+      base = URL::FIND_DOCS % database
+      Response::FindResults.from_json post(base, body: query.to_json, headers: HTTP::Headers{
+        "Content-Type" => "application/json" })
+    end
+
+
 
   end
 
