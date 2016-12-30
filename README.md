@@ -28,7 +28,14 @@ info.vendor["name"] # The Apache Software Foundation
 
 ## Development
 
-TODO: Write development instructions here
+- [x] Get server info
+- [x] Create Database
+- [x] Delete Database
+- [x] List Database
+- [ ] Create Document
+- [ ] Find Document
+- [ ] Delete Document
+- [ ] Update Document
 
 ## Contributing
 
