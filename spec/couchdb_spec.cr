@@ -13,10 +13,20 @@ describe CouchDB do
       info.vendor["name"].should eq "The Apache Software Foundation"
     end
 
+    it "should create a database named testdb" do
+      client = new_client
+      client.create_database("testdb").ok?.should be_true
+    end
+
     it "should return databases list" do
       client = new_client
       dbs = client.databases
-      dbs.should eq [] of String
+      dbs.should eq ["testdb"]
+    end
+
+    it "should delete a database named testdb" do
+      client = new_client
+      client.delete_database("testdb").ok?.should be_true
     end
 
 

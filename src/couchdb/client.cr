@@ -10,6 +10,7 @@ module CouchDB
 
     INFO = "/"
     ALL_DBS = "/_all_dbs"
+    DB = "/%s"
 
   end
 
@@ -18,21 +19,27 @@ module CouchDB
     def initialize(@uri : String = "http://127.0.0.1:5984")
     end
 
+    {% for method in [:get, :put, :delete] %}
+      private def {{method.id}}(path : String)
+        response = HTTP::Client.{{method.id}}(@uri + path)
+        response.body
+      end
+    {% end %}
+
     def server_info : Response::ServerInfo
       Response::ServerInfo.from_json(get URL::INFO)
     end
 
     def databases : Array(String)
-      JSON.parse(get URL::ALL_DBS)
+      Array(String).from_json(get URL::ALL_DBS)
     end
 
-    def get(path : String) : String
-      response = HTTP::Client.get(@uri + path)
-      if response.success?
-        return response.body
-      else
-        raise Exception.new "Failure sending request"
-      end
+    def create_database(name : String) : Response::Status
+      Response::Status.from_json(put URL::DB % name )
+    end
+
+    def delete_database(name : String) : Response::Status
+      Response::Status.from_json(delete URL::DB % name)
     end
 
   end

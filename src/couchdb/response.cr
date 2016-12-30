@@ -1,1 +1,1 @@
-require "./response/server_info"
+require "./response/*"
