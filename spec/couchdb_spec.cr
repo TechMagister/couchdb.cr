@@ -39,6 +39,19 @@ describe CouchDB do
       status.rev.should_not be_nil
     end
 
+    it "should find all the documents" do
+      client = new_client
+      resp = client.documents("testdb", include_docs: true)
+      resp.total_rows.should eq 1
+      resp.offset.should eq 0
+
+      row = resp.rows.first
+
+      row["name"].should eq "John"
+      row["age"].should eq 20
+
+    end
+
     # run at end because tests use testdb
     it "should delete a database named testdb" do
       client = new_client

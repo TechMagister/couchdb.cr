@@ -13,6 +13,7 @@ module CouchDB
     DB = "/%s"
     UUIDS = "/_uuids?count=%d"
     CREATE_DOC = DB + "/%s"
+    ALL_DOCS = DB + "/_all_docs"
 
   end
 
@@ -47,6 +48,12 @@ module CouchDB
     def new_uuids(count = 1) : Array(String)
       res = NamedTuple(uuids: Array(String)).from_json(get URL::UUIDS % count)
       res["uuids"]
+    end
+
+    def documents(database : String, include_docs = false) : Response::Results
+      base = URL::ALL_DOCS % database
+      uri = base + "?include_docs=" + include_docs.to_s
+      Response::Results.from_json get(uri)
     end
 
     def create_document(database, object) : Response::CreateDocumentStatus
