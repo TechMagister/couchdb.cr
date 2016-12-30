@@ -16,9 +16,15 @@ dependencies:
 
 ```crystal
 require "couchdb"
-```
 
-TODO: Write usage instructions here
+client = CouchDB::Client.new "http://127.0.0.1:5984"
+
+info = client.server_info
+info.couchdb # Welcome
+info.version # 2.0.0
+info.vendor["name"] # The Apache Software Foundation
+
+```
 
 ## Development
 
