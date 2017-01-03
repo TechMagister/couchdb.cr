@@ -34,6 +34,10 @@ module CouchDB
       @client.find_document(@name, query)
     end
 
+    def find(query, resultclass)
+      @client.find_document(@name, query, resultclass)
+    end
+
     def update(object)
       if object.id
         res = @client.update_document(@name, object._id, object)
