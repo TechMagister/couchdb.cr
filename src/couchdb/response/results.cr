@@ -31,12 +31,12 @@ module CouchDB::Response
 
   end
 
-  class FindResults
+  class FindResults(T)
     JSON.mapping(
       error: String?,
       reason: String?,
       warning: String?,
-      docs: Array(JSON::Any)?
+      docs: Array(T)?
     )
 
     def ok?

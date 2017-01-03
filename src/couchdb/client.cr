@@ -89,9 +89,13 @@ module CouchDB
       )
     end
 
-    def find_document(database : String, query : FindQuery) : Response::FindResults
+    def find_document(database : String, query : FindQuery) : Response::FindResults(JSON::Any)
+      find_document(database, query, CouchDB::Response::FindResults(JSON::Any))
+    end
+
+    def find_document(database : String, query : FindQuery, response_class)
       base = URL::FIND_DOCS % database
-      Response::FindResults.from_json post(base, body: query.to_json,
+      response_class.from_json post(base, body: query.to_json,
                                            headers: HTTP::Headers{
                                              "Content-Type" => "application/json"
                                            })
