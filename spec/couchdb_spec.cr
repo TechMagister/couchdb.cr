@@ -53,11 +53,33 @@ describe CouchDB do
 
     it "should find a document" do
       client = new_client
-      query = CouchDB::FindQuery.from_json "{\"selector\": { \"age\": {\"$eq\": 20} } }"
+      query = CouchDB::FindQuery.from_json %({"selector": { "age": {"$eq": 20} } })
       resp = client.find_document("testdb", query)
 
       resp.docs.size.should eq 1
       resp.docs.first["name"].should eq "John"
+
+    end
+
+    it "should update a document" do
+      client = new_client
+      docs_res = client.documents("testdb", include_docs: true)
+
+      if doc = docs_res.rows.first.doc
+
+        new_one = doc.as_h
+        id = new_one["_id"]
+        rev = new_one["_rev"]
+
+        new_one["age"] = 25_i64
+
+        res = client.update_document "testdb", id, new_one
+        res.ok?.should be_true
+        res.id.should eq id
+        res.rev.should_not eq rev
+      else
+        fail "Fail to get document"
+      end
 
     end
 

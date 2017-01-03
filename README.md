@@ -31,13 +31,13 @@ info.vendor["name"] # The Apache Software Foundation
 - [x] Get server info
 - [x] Create Database
 - [x] Delete Database
-- [x] List Database
+- [x] List Databases
 - [x] Get new uuid
-- [x] Create Document
+- [x] Create Documents
 - [x] Find all the documents
-- [x] Find Document with criteria
-- [x] Delete Document
-- [ ] Update Document
+- [x] Find Documents with criteria
+- [x] Delete Documents
+- [x] Update Documents
 
 ## Contributing
 

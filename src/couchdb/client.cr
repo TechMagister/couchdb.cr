@@ -83,6 +83,12 @@ module CouchDB
       )
     end
 
+    def update_document(database, uuid, document) : Response::DocumentStatus
+      Response::DocumentStatus.from_json(
+        put URL::DOC % {database, uuid}, body: document.to_json
+      )
+    end
+
     def find_document(database : String, query : FindQuery) : Response::FindResults
       base = URL::FIND_DOCS % database
       Response::FindResults.from_json post(base, body: query.to_json, headers: HTTP::Headers{
