@@ -21,7 +21,7 @@ describe CouchDB do
     it "should return databases list" do
       client = new_client
       dbs = client.databases
-      dbs.should eq ["testdb"]
+      dbs.should eq ["test_db", "testdb"]
     end
 
     it "should grab new uuids" do
@@ -56,8 +56,10 @@ describe CouchDB do
       query = CouchDB::FindQuery.from_json %({"selector": { "age": {"$eq": 20} } })
       resp = client.find_document("testdb", query)
 
-      resp.docs.size.should eq 1
-      resp.docs.first["name"].should eq "John"
+      resp.error.should be_nil
+
+      resp.docs.not_nil!.size.should eq 1
+      resp.docs.not_nil!.first["name"].should eq "John"
 
     end
 

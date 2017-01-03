@@ -33,9 +33,16 @@ module CouchDB::Response
 
   class FindResults
     JSON.mapping(
+      error: String?,
+      reason: String?,
       warning: String?,
-      docs: Array(JSON::Any)
+      docs: Array(JSON::Any)?
     )
+
+    def ok?
+      error ? false : true
+    end
+
   end
 
 end
