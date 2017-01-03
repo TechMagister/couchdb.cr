@@ -36,7 +36,7 @@ info.vendor["name"] # The Apache Software Foundation
 - [x] Create Document
 - [x] Find all the documents
 - [x] Find Document with criteria
-- [ ] Delete Document
+- [x] Delete Document
 - [ ] Update Document
 
 ## Contributing

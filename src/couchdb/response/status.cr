@@ -25,7 +25,7 @@ module CouchDB::Response
 
   end
 
-  class CreateDocumentStatus < Status
+  class DocumentStatus < Status
 
     JSON.mapping(
       ok: Bool?,

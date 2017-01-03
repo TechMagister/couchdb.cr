@@ -8,12 +8,18 @@ module CouchDB
 
   module URL
 
-    INFO = "/"
+
     ALL_DBS = "/_all_dbs"
     DB = "/%s"
     UUIDS = "/_uuids?count=%d"
 
-    CREATE_DOC = DB + "/%s"
+    # Server
+    INFO = "/"
+    ACTIVE_TASKS = "/_active_tasks"
+
+
+    # Database
+    DOC = DB + "/%s"
     ALL_DOCS = DB + "/_all_docs"
     FIND_DOCS = DB + "/_find"
 
@@ -32,6 +38,10 @@ module CouchDB
         response.body
       end
     {% end %}
+
+    def active_tasks : Array(CouchDB::Response::ActiveTask)
+      Array(CouchDB::Response::ActiveTask).from_json(get URL::ACTIVE_TASKS)
+    end
 
     def server_info : Response::ServerInfo
       Response::ServerInfo.from_json(get URL::INFO)
@@ -60,10 +70,16 @@ module CouchDB
       Response::Results.from_json get(uri)
     end
 
-    def create_document(database, object) : Response::CreateDocumentStatus
+    def create_document(database, object) : Response::DocumentStatus
       uuid = new_uuids.first
-      Response::CreateDocumentStatus.from_json(
-        put(URL::CREATE_DOC % {database, uuid}, body: object.to_json)
+      Response::DocumentStatus.from_json(
+        put(URL::DOC % {database, uuid}, body: object.to_json)
+      )
+    end
+
+    def delete_document(database, uuid, rev) : Response::DocumentStatus
+      Response::DocumentStatus.from_json(
+        delete(URL::DOC % {database, uuid} + "?rev=#{rev}")
       )
     end
 

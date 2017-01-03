@@ -10,7 +10,7 @@ describe CouchDB do
       info = client.server_info
       info.couchdb.should eq "Welcome"
       info.version.should eq "2.0.0"
-      info.vendor["name"].should eq "The Apache Software Foundation"
+      info.vendor.name.should eq "The Apache Software Foundation"
     end
 
     it "should create a database named testdb" do
@@ -59,6 +59,16 @@ describe CouchDB do
       resp.docs.size.should eq 1
       resp.docs.first["name"].should eq "John"
 
+    end
+
+    it "should delete a document" do
+      client = new_client
+      resp = client.documents("testdb")
+      uuid = resp.rows.first.id
+      rev = resp.rows.first.value[:rev]
+      res = client.delete_document("testdb", uuid, rev)
+      res.ok?.should be_true
+      res.id.should eq uuid
     end
 
     # run at end because tests use testdb
