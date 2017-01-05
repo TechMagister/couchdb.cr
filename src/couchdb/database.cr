@@ -39,7 +39,7 @@ module CouchDB
     end
 
     def update(object)
-      if object.id
+      if object._id
         res = @client.update_document(@name, object._id, object)
         if res.ok?
           object._rev = res.rev
@@ -49,6 +49,20 @@ module CouchDB
       else
         raise Exception.new "Can't update non persistant object"
       end
+    end
+
+    def delete(object)
+      if object._id && object._rev
+        res = @client.delete_document(@name, object._id, object._rev)
+        if res.ok?
+          object._rev = res.rev
+        else
+          raise Exception.new res.reason?
+        end
+      else
+        raise Exception.new "Can't delete non persistant object"
+      end
+
     end
 
     def drop!
