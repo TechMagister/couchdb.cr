@@ -31,7 +31,7 @@ module CouchDB
     end
 
     {% for method in [:get, :put, :delete, :post] %}
-      def {{method.id}}(path : String, body : String = nil,
+      def {{method.id}}(path : String, body : String? = nil,
                                 headers : HTTP::Headers? = nil)
         response = HTTP::Client.{{method.id}}(@uri + path, body: body,
                                               headers: headers)
