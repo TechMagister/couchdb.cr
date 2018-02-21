@@ -9,7 +9,7 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   couchdb:
-    github: TechMagister/couchdb
+    github: TechMagister/couchdb.cr
 ```
 
 ## Usage
