@@ -51,6 +51,10 @@ module CouchDB
       end
     end
 
+    def get(id, resultclass)
+      @client.get_document(@name, id, resultclass)
+    end
+
     def delete(object)
       if object._id && object._rev
         res = @client.delete_document(@name, object._id, object._rev)

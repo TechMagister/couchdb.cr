@@ -89,6 +89,11 @@ module CouchDB
       )
     end
 
+    def get_document(database : String, id : String, response_class)
+      response = HTTP::Client.get(@uri + URL::DOC % {database, id})
+      response_class.from_json(response.body) if response.success?
+    end
+
     def find_document(database : String, query : FindQuery) : Response::FindResults(JSON::Any)
       find_document(database, query, CouchDB::Response::FindResults(JSON::Any))
     end

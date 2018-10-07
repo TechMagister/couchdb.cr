@@ -15,6 +15,20 @@ describe CouchDB::Database do
     obj._rev.should_not be_nil
   end
 
+  describe "#get" do
+    it "returns an object if exists" do
+      obj = TestObject.new("database_get_test", 20)
+      TEST_DB.create(obj)
+      result = TEST_DB.get(obj._id.not_nil!, TestObject)
+      result.not_nil!.name.should eq("database_get_test")
+    end
+
+    it "returns nil if key not exists" do
+      result = TEST_DB.get("unknown_key______", Hash(String, JSON::Any))
+      result.should be_nil
+    end
+  end
+
   it "should find an object" do
     query  = CouchDB::FindQuery.from_json %({"selector" : {"int" : {"$eq" : 20}}})
     res = TEST_DB.find query
