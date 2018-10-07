@@ -9,7 +9,7 @@ describe CouchDB do
       client = new_client
       info = client.server_info
       info.couchdb.should eq "Welcome"
-      info.version.should eq "2.0.0"
+      info.version.should match /^2\.\d+\.\d+$/
       info.vendor.name.should eq "The Apache Software Foundation"
     end
 
@@ -73,7 +73,7 @@ describe CouchDB do
         id = new_one["_id"]
         rev = new_one["_rev"]
 
-        new_one["age"] = 25_i64
+        new_one["age"] = JSON::Any.new(25_i64)
 
         res = client.update_document "testdb", id, new_one
         res.ok?.should be_true
