@@ -95,6 +95,16 @@ describe CouchDB do
       res.id.should eq uuid
     end
 
+    it "should get a document" do
+      client = new_client
+      new_doc = client.create_document("testdb", {name: "John", age: 20})
+      result = client.get_document("testdb", new_doc.id.not_nil!, Hash(String, JSON::Any))
+      result.should_not be_nil
+      result.not_nil!.values_at("name", "age").should eq({"John", 20})
+      result.not_nil!["_id"].should_not be_nil
+      result.not_nil!["_rev"].should_not be_nil
+    end
+
     # run at end because tests use testdb
     it "should delete a database named testdb" do
       client = new_client
