@@ -50,3 +50,4 @@ info.vendor.name # The Apache Software Foundation
 ## Contributors
 
 - [TechMagister](https://github.com/TechMagister) Arnaud Fernandés - creator, maintainer
+- [Schniz](https://github.com/Schniz) Gal Schlezinger - contributor
