@@ -3,7 +3,8 @@ require "spec"
 require "../src/couchdb"
 
 def new_client : CouchDB::Client
-  CouchDB::Client.new "http://admin:password@localhost:5984"
+  couchdb_url = ENV["TEST_DB"]? || "http://admin:password@localhost:5984"
+  CouchDB::Client.new couchdb_url
 end
 
 TEST_DB = CouchDB::Database.new new_client, "test_db"
