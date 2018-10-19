@@ -1,0 +1,34 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: crystallang/crystal:nightly
+        environment:
+          TEST_DB: "http://admin:1234@localhost:5984"
+      - image: couchdb:latest
+        environment:
+          COUCHDB_USER: "admin"
+          COUCHDB_PASSWORD: 1234
+    environment:
+    steps:
+      - checkout
+      - run: crystal --version
+      - run: shards install
+      - run: crystal spec --junit_output=test_results
+      - store_test_results:
+          path: test_results
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - build
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - build

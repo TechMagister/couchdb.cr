@@ -20,8 +20,11 @@ describe CouchDB do
 
     it "should return databases list" do
       client = new_client
+      client.create_database("test1")
+      client.create_database("test2")
       dbs = client.databases
-      dbs.should eq ["test_db", "testdb"]
+      dbs.should contain("test1")
+      dbs.should contain("test2")
     end
 
     it "should grab new uuids" do
