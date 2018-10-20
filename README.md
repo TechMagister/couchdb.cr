@@ -1,5 +1,4 @@
-# couchdb [![Build Status](https://travis-ci.org/TechMagister/couchdb.cr.svg?branch=master)](https://travis-ci.org/TechMagister/couchdb.cr)
-
+# couchdb [![Build Status on CircleCI](https://circleci.com/gh/TechMagister/couchdb.cr.svg?style=svg)](https://circleci.com/gh/TechMagister/couchdb.cr)
 CouchDB client written in crystal
 
 ## Installation
