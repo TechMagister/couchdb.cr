@@ -100,8 +100,11 @@ describe CouchDB do
 
     it "should get a document" do
       client = new_client
-      new_doc = client.create_document("testdb", {name: "John", age: 20})
-      result = client.get_document("testdb", new_doc.id.not_nil!, Hash(String, JSON::Any))
+      status = client.create_document("testdb", {_id: "john", name: "John", age: 20})
+      status.ok?.should be_true
+      status.id.should eq "john"
+
+      result = client.get_document("testdb", "john", Hash(String, JSON::Any))
       result.should_not be_nil
       result.not_nil!.values_at("name", "age").should eq({"John", 20})
       result.not_nil!["_id"].should_not be_nil

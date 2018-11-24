@@ -71,7 +71,12 @@ module CouchDB
     end
 
     def create_document(database, object) : Response::DocumentStatus
-      uuid = new_uuids.first
+      existing_id = case object
+        when .responds_to?(:_id) then object._id
+        when .responds_to?(:[]?) then object["_id"]? || object[:_id]?
+      end
+
+      uuid = existing_id || new_uuids.first
       Response::DocumentStatus.from_json(
         put(URL::DOC % {database, uuid}, body: object.to_json)
       )
