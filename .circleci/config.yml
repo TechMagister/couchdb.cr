@@ -5,7 +5,7 @@ jobs:
       - image: crystallang/crystal:nightly
         environment:
           TEST_DB: "http://admin:1234@localhost:5984"
-      - image: couchdb:latest
+      - image: couchdb:2.3
         environment:
           COUCHDB_USER: "admin"
           COUCHDB_PASSWORD: 1234
