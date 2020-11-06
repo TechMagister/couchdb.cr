@@ -1,4 +1,6 @@
-# couchdb [![Build Status on CircleCI](https://circleci.com/gh/TechMagister/couchdb.cr.svg?style=svg)](https://circleci.com/gh/TechMagister/couchdb.cr)
+-fork of TechMagister/couchdb.cr
+- added custom method to client.cr for using externally-generated ID:  create_document_custom_id(database, object, id)
+
 CouchDB client written in crystal
 
 ## Installation
@@ -8,7 +10,7 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   couchdb:
-    github: TechMagister/couchdb.cr
+    github: vectorselector/couchdb.cr
 ```
 
 ## Usage
