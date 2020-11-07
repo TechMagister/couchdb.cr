@@ -4,13 +4,13 @@ module CouchDB
 
   class FindQuery
 
-    JSON.mapping(
-      selector: JSON::Any,
-      limit: Int64?,
-      skip: Int64?,
-      sort: Array(String)?,
-      fields: Array(String)?
-    )
+    {
+      "selector" => JSON::Any,
+      "limit" => Int64?,
+      "skip" => Int64?,
+      "sort" => Array(String)?,
+      "fields" => Array(String)?
+    }.to_json
 
   end
 
