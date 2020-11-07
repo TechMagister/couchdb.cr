@@ -5,11 +5,11 @@ module CouchDB::Response
 
   class Status
 
-    JSON.mapping(
-      ok: Bool?,
-      error: String?,
-      reason: String?
-    )
+    {
+      "ok" => Bool?,
+      "error" => String?,
+      "reason" => String?
+    }.to_json
 
     def ok? : Bool
       ok.nil? ? false : ok.not_nil!
@@ -27,13 +27,13 @@ module CouchDB::Response
 
   class DocumentStatus < Status
 
-    JSON.mapping(
-      ok: Bool?,
-      error: String?,
-      reason: String?,
-      id: String?,
-      rev: String?
-    )
+    {
+      "ok" => Bool?,
+      "error" => String?,
+      "reason" => String?,
+      "id" => String?,
+      "rev" => String?
+    }.to_json
 
   end
 
