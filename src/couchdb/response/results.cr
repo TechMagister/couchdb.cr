@@ -4,12 +4,12 @@ module CouchDB::Response
 
   class Result
 
-    JSON.mapping(
-      id: String,
-      key: String,
-      value: NamedTuple(rev: String),
-      doc: JSON::Any?
-    )
+    {
+      "id" => String,
+      "key" => String,
+      "value" => NamedTuple(rev: String),
+      "doc" => JSON::Any?
+    }.to_json
 
     def [](key : String)
       if d = doc
@@ -23,21 +23,21 @@ module CouchDB::Response
 
   class Results
 
-    JSON.mapping(
-      total_rows: Int64,
-      offset: Int64,
-      rows: Array(Result)
-    )
+    {
+      "total_rows" => Int64,
+      "offset" => Int64,
+      "rows" => Array(Result)
+    }.to_json
 
   end
 
   class FindResults(T)
-    JSON.mapping(
-      error: String?,
-      reason: String?,
-      warning: String?,
-      docs: Array(T)?
-    )
+    {
+      "error" => String?,
+      "reason" => String?,
+      "warning" => String?,
+      "docs" => Array(T)?
+    }.to_json
 
     def ok?
       error ? false : true
