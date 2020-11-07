@@ -1,6 +1,7 @@
 -fork of TechMagister/couchdb.cr
 - added custom method to client.cr for using externally-generated ID:  create_document_custom_id(database, object, id)
-
+- updated for crystal 0.35.1 *
+  
 CouchDB client written in crystal
 
 ## Installation
@@ -52,3 +53,17 @@ info.vendor.name # The Apache Software Foundation
 
 - [TechMagister](https://github.com/TechMagister) Arnaud Fernandés - creator, maintainer
 - [Schniz](https://github.com/Schniz) Gal Schlezinger - contributor
+
+
+*among other minor API changes JSON.mapping is deprecated, instead we do the following:
+```
+  class FindQuery
+    include JSON::Serializable
+    property selector : JSON::Any
+    property limit : Int64?
+    property skip : Int64?
+    property sort : Array(String)?
+    property fields : Array(String)?
+  end
+```
+
