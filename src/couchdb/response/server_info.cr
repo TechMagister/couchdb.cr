@@ -3,19 +3,19 @@ require "json"
 module CouchDB::Response
 
   class Vendor
-    JSON.mapping(
-      name: String,
-      version: String?
-    )
+    {
+      "name" => String,
+      "version" => String?
+    }.to_json
   end
 
   class ServerInfo
-    JSON.mapping(
-      couchdb: String,
-      uuid: String?,
-      version: String,
-      vendor: Vendor
-    )
+    {
+      "couchdb" => String,
+      "uuid" => String?,
+      "version" => String,
+      "vendor" => Vendor
+    }.to_json
   end
 
 end
