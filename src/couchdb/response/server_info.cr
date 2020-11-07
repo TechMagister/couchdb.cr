@@ -3,19 +3,17 @@ require "json"
 module CouchDB::Response
 
   class Vendor
-    {
-      "name" => String,
-      "version" => String?
-    }.to_json
+    include JSON::Serializable
+    property name : String
+    property version : String
   end
 
   class ServerInfo
-    {
-      "couchdb" => String,
-      "uuid" => String?,
-      "version" => String,
-      "vendor" => Vendor
-    }.to_json
+    include JSON::Serializable
+    property couchdb : String
+    property uuid : String
+    property version : String
+    property vendor : Vendor
   end
 
 end
