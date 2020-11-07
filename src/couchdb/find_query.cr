@@ -3,14 +3,13 @@ require "json"
 module CouchDB
 
   class FindQuery
-
-    {
-      "selector" => JSON::Any,
-      "limit" => Int64?,
-      "skip" => Int64?,
-      "sort" => Array(String)?,
-      "fields" => Array(String)?
-    }.to_json
+    include JSON::Serializable
+    
+    property selector : JSON::Any
+    property limit : Int64?
+    property skip : Int64?
+    property sort : Array(String)?
+    property fields : Array(String)?
 
   end
 
