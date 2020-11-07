@@ -7,7 +7,7 @@ module CouchDB::Response
       "change_done" => Int64,
       "database" => String,
       "pid" => String,
-      "progress" => Int,
+      "progress" => Int64,
       "started_on" => Int64,
       "total_changes" => Int64,
       "type" => String,
