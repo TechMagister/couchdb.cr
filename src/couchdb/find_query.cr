@@ -8,7 +8,7 @@ module CouchDB
     property selector : JSON::Any
     property limit : Int64?
     property skip : Int64?
-    property sort : Array(String)?
+    property sort : Array(String)? | JSON::Any?
     property fields : Array(String)?
 
   end
