@@ -29,10 +29,11 @@ info.vendor.name # The Apache Software Foundation
 ```
 
 usage overview/example:
-`COUCHDB_URL = ENV["COUCHDB_URL"]? || "http://127.0.0.1:5984"`
-`DB = CouchDB::Client.new COUCHDB_URL` 
-`myQuery = CouchDB::FindQuery.from_json %({"selector":{"user_id":"#{userId}", "$not":{"archived":true} }, "sort":[{"timestamp":"desc"}], "limit":#{limit} })`
-`myThing = DB.find_document("things", myQuery).docs.not_nil!.first`
+```COUCHDB_URL = ENV["COUCHDB_URL"]? || "http://127.0.0.1:5984"
+`DB = CouchDB::Client.new COUCHDB_URL
+`myQuery = CouchDB::FindQuery.from_json %({"selector":{"user_id":"#{userId}", "$not":{"archived":true} }, "sort":[{"timestamp":"desc"}], "limit":#{limit} })
+`myThing = DB.find_document("things", myQuery).docs.not_nil!.first
+ ```
  
 "sort" takes an array of  EITHER a String or an object as such [{"fieldname1": "desc"}, {"fieldname2": "asc"}] per CouchDB docs
 https://docs.couchdb.org/en/2.3.1/api/database/find.html#sort-syntax
