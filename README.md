@@ -1,5 +1,5 @@
 -fork of TechMagister/couchdb.cr
-- added custom method to client.cr for using externally-generated ID:  create_document_custom_id(database, object, id)
+- fixed "sort"
 - updated for crystal 0.35.1 (will update for v1 shortly...circleCI = never. tests updated = shortly)
 - 
 CouchDB client written in crystal
