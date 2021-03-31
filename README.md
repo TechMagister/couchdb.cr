@@ -1,7 +1,7 @@
 -fork of TechMagister/couchdb.cr
 - added custom method to client.cr for using externally-generated ID:  create_document_custom_id(database, object, id)
-- updated for crystal 0.35.1 *
-  
+- updated for crystal 0.35.1 (will update for v1 shortly...circleCI = never. tests updated = shortly)
+- 
 CouchDB client written in crystal
 
 ## Installation
@@ -28,6 +28,17 @@ info.vendor.name # The Apache Software Foundation
 
 ```
 
+usage overview/example:
+`COUCHDB_URL = ENV["COUCHDB_URL"]? || "http://127.0.0.1:5984"`
+`DB = CouchDB::Client.new COUCHDB_URL` 
+`myQuery = CouchDB::FindQuery.from_json %({"selector":{"user_id":"#{userId}", "$not":{"archived":true} }, "sort":[{"timestamp":"desc"}], "limit":#{limit} })`
+`myThing = DB.find_document("things", myQuery).docs.not_nil!.first`
+ 
+"sort" takes an array of  EITHER a String or an object as such [{"fieldname1": "desc"}, {"fieldname2": "asc"}] per CouchDB docs
+https://docs.couchdb.org/en/2.3.1/api/database/find.html#sort-syntax
+
+"skip" is like "limit" and goes outside the "selector"...
+
 ## Development
 
 - [x] Get server info
@@ -50,20 +61,9 @@ info.vendor.name # The Apache Software Foundation
 5. Create a new Pull Request
 
 ## Original Project Contributors (what I've forked)
-
 - [TechMagister](https://github.com/TechMagister) Arnaud Fernandés - creator, maintainer
 - [Schniz](https://github.com/Schniz) Gal Schlezinger - contributor
 
 
-*among other minor API changes JSON.mapping is deprecated, instead we do the following:
-```
-  class FindQuery
-    include JSON::Serializable
-    property selector : JSON::Any
-    property limit : Int64?
-    property skip : Int64?
-    property sort : Array(String)?
-    property fields : Array(String)?
-  end
-```
+
 
