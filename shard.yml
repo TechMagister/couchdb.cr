@@ -5,6 +5,6 @@ authors:
   - Arnaud Fernandés <arnaud.fernandes@tech-magister.com>
   - fork maintained by vectorselector
 
-crystal: 1.0.0
+crystal: 0.35.1
 
 license: MIT
