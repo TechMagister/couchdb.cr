@@ -77,6 +77,12 @@ module CouchDB
       )
     end
 
+    def create_document_custom_id(database, object, id) : Response::DocumentStatus
+      Response::DocumentStatus.from_json(
+        put(URL::DOC % {database, id}, body: object.to_json)
+      )
+    end 
+    
     def delete_document(database, uuid, rev) : Response::DocumentStatus
       Response::DocumentStatus.from_json(
         delete(URL::DOC % {database, uuid} + "?rev=#{rev}")

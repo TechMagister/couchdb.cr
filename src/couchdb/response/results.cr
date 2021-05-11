@@ -3,13 +3,11 @@ require "json"
 module CouchDB::Response
 
   class Result
-
-    JSON.mapping(
-      id: String,
-      key: String,
-      value: NamedTuple(rev: String),
-      doc: JSON::Any?
-    )
+    include JSON::Serializable
+    property id : String
+    property key : String
+    property value : NamedTuple(rev: String)
+    property doc : JSON::Any?
 
     def [](key : String)
       if d = doc
@@ -22,22 +20,18 @@ module CouchDB::Response
   end
 
   class Results
-
-    JSON.mapping(
-      total_rows: Int64,
-      offset: Int64,
-      rows: Array(Result)
-    )
-
+    include JSON::Serializable
+    property total_rows : Int64
+    property offset : Int64
+    property rows : Array(Result)
   end
 
   class FindResults(T)
-    JSON.mapping(
-      error: String?,
-      reason: String?,
-      warning: String?,
-      docs: Array(T)?
-    )
+    include JSON::Serializable
+    property error : String?
+    property reason : String?
+    property warning : String?
+    property docs : Array(T)?
 
     def ok?
       error ? false : true

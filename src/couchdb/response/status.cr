@@ -4,13 +4,11 @@ require "json"
 module CouchDB::Response
 
   class Status
-
-    JSON.mapping(
-      ok: Bool?,
-      error: String?,
-      reason: String?
-    )
-
+    include JSON::Serializable
+    property ok : Bool?
+    property error : String?
+    property reason : String?
+    
     def ok? : Bool
       ok.nil? ? false : ok.not_nil!
     end
@@ -26,15 +24,12 @@ module CouchDB::Response
   end
 
   class DocumentStatus < Status
-
-    JSON.mapping(
-      ok: Bool?,
-      error: String?,
-      reason: String?,
-      id: String?,
-      rev: String?
-    )
-
+    include JSON::Serializable
+    property ok : Bool?
+    property error : String?
+    property reason : String?
+    property id : String?
+    property rev : String?
   end
 
 end

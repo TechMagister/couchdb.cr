@@ -1,4 +1,7 @@
-# couchdb [![Build Status on CircleCI](https://circleci.com/gh/TechMagister/couchdb.cr.svg?style=svg)](https://circleci.com/gh/TechMagister/couchdb.cr)
+-fork of TechMagister/couchdb.cr
+- fixed "sort"
+- updated for crystal 0.35.1 (will update for v1 shortly...circleCI = never. tests updated = shortly)
+- 
 CouchDB client written in crystal
 
 ## Installation
@@ -8,7 +11,7 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   couchdb:
-    github: TechMagister/couchdb.cr
+    github: vectorselector/couchdb.cr
 ```
 
 ## Usage
@@ -25,6 +28,19 @@ info.vendor.name # The Apache Software Foundation
 
 ```
 
+usage overview/example:
+```
+COUCHDB_URL = ENV["COUCHDB_URL"]? || "http://127.0.0.1:5984"
+DB = CouchDB::Client.new COUCHDB_URL
+myQuery = CouchDB::FindQuery.from_json %({"selector":{"user_id":"#{userId}", "$not":{"archived":true} }, "sort":[{"timestamp":"desc"}], "limit":#{limit} })
+myThing = DB.find_document("things", myQuery).docs.not_nil!.first
+ ```
+ 
+"sort" takes an array of  EITHER a String or an object as such [{"fieldname1": "desc"}, {"fieldname2": "asc"}] per CouchDB docs
+https://docs.couchdb.org/en/2.3.1/api/database/find.html#sort-syntax
+
+"skip" is like "limit" and goes outside the "selector"...
+
 ## Development
 
 - [x] Get server info
@@ -40,13 +56,16 @@ info.vendor.name # The Apache Software Foundation
 
 ## Contributing
 
-1. Fork it ( https://github.com/TechMagister/couchdb/fork )
+1. Fork it ( https://github.com/vectorselector/couchdb/fork )
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)
 5. Create a new Pull Request
 
-## Contributors
-
+## Original Project Contributors (what I've forked)
 - [TechMagister](https://github.com/TechMagister) Arnaud Fernandés - creator, maintainer
 - [Schniz](https://github.com/Schniz) Gal Schlezinger - contributor
+
+
+
+
